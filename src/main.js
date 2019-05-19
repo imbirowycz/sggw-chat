@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import store from "./store/store.js"
+import VueSocketio from 'vue-socket.io-extended';
+import io from 'socket.io-client';
+
+Vue.use(VueSocketio, io('http://localhost:3000'));
 
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)

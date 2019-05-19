@@ -207,7 +207,7 @@ export default {
     }
     .block-radio__item--box {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       flex-direction: column;
       justify-content: space-between;
       // border: 1px solid #ced4da;

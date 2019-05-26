@@ -3,12 +3,16 @@ export default {
   state: {
     userReg: {},
   },
-  getters: {},
+  getters: {
+    getUser (state) {
+      return state.userReg;
+    }
+  },
   actions: {},
   mutations: {
     createdUser(state, payload) {
       // console.log(payload)
-      state.userReg = Object.assign({}, payload);
+      state.userReg = Object.assign(state.userReg, payload);
     },
     setPasswordInUser(state, payload) {
       state.userReg.password = payload;

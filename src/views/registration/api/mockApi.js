@@ -1,14 +1,14 @@
 const degressList = [
-  {value: null, text: 'Wybirz jedno'},
-  {value: 'LICEŃCIAT', text: 'LICEŃCIAT'},
-  {value: 'IŻYNIER', text: 'IŻYNIER'},
+  {value: null, text: 'Wybierz jedno'},
+  {value: 'LICENCJAT', text: 'LICEŃCIAT'},
+  {value: 'INŻYNIER', text: 'IŻYNIER'},
   {value: 'MAGISTER', text: 'IŻYNIER'},
   {value: 'DOKTOR', text: 'DOKTOR'},
   {value: 'DOKTOR HAB', text: 'DOKTOR HAB'},
   {value: 'PROFESOR', text: 'PROFESOR'},
 ];
 const scientificsList = [
-  {value: 'kdjfkdfjk', text: 'Język obcy'},
+  {value: 'Język obcy', text: 'Język obcy'},
   {
     value: 'Ochrona własności intelektualnej',
     text: 'Ochrona własności intelektualnej',
@@ -82,7 +82,7 @@ const scientificsList = [
   },
 ];
 const facultysList = [
-  {value: null, text: 'Wybirz jedno'},
+  {value: null, text: 'Wybierz jedno'},
   {
     value: 'WYDZIAŁ ROLNICTWA I BIOLOGII',
     text: 'WYDZIAŁ ROLNICTWA I BIOLOGII',
@@ -130,7 +130,7 @@ const facultysList = [
 // ***************************************************************
 
 const fieldsOfStudy = [
-  {value: null, text: 'Wybirz jedno'},
+  {value: null, text: 'Wybierz jedno'},
   {
     value: 'WYDZIAŁ ROLNICTWA I BIOLOGII',
     text: 'WYDZIAŁ ROLNICTWA I BIOLOGII',
@@ -176,7 +176,7 @@ const fieldsOfStudy = [
   },
 ];
 const years = [
-  {value: null, text: 'Wybirz jedno'},
+  {value: null, text: 'Wybierz jedno'},
   {value: '2014', text: '2014'},
   {value: '2015', text: '2015'},
   {value: '2016', text: '2016'},

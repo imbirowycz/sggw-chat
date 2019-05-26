@@ -70,7 +70,8 @@ export default {
     Loader
   },
   props: {
-    param: String
+    param: String,
+    user: Object
   },
   // props: { hellomsg: { type: String, required: true } },
   data() {
@@ -89,9 +90,23 @@ export default {
       error_list: []
     };
   },
+  computed: {
+    ...mapGetters("user", ["loginUser"]),
+    /**
+     * @return {boolean}
+     */
+    ValidateEmail() {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+        return true;
+      }
+
+      return false;
+    }
+  },
   methods: {
     ...mapMutations("user", ["createdUser"]),
     login: function() {
+      console.log('walidacja danych')
       // check valid email
       this.erroList = [];
       if (!this.email.data == "") {
@@ -133,24 +148,19 @@ export default {
             this.$router.push("/");
             this.status = "LOADED";
           }, 2000);
+        } else {
+          // console.log('Użytkownik z takimi danymi nie odnaleziony!')
         }
-      }
+      } else console.error('validacja nieudana!');
     },
     linkRegister() {
       this.$router.push("/registration");
     }
   },
-  computed: {
-    ...mapGetters("user", ["loginUser"]),
-    /**
-     * @return {boolean}
-     */
-    ValidateEmail() {
-      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
-        return true;
-      }
-
-      return false;
+  created() {
+    if (this.user != null) {
+      this.email.data = this.user.email;
+      this.password.data = this.user.password;
     }
   }
 };

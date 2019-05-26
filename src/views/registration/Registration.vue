@@ -19,7 +19,7 @@
 </template>
 <script>
 import Loader from "@/components/Loader";
-import {mapGetters} from "vuex"
+import {mapGetters, mapMutations} from "vuex"
 export default {
   name: "Registration",
 
@@ -70,6 +70,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('registrationUser', ['createdUser']),
     steDecorator(value) {
       this.links.forEach(x => {
         if (x.url_1 == value || x.url_2 == value) x.isActive = true;
@@ -84,10 +85,13 @@ export default {
       this.status = status;
     },
     bildUser(payload) {
-      this.user = Object.assign(this.user, payload);
+      this.createdUser(payload);
+      // this.user = Object.assign(this.user, payload);
       console.log(this.user, "wywolano metode bildUser");
     },
-    finishedBildUser() {}
+    finishedBildUser() {
+      this.createdUser(this.user)
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.steDecorator(to.path);

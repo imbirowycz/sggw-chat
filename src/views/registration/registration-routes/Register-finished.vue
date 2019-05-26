@@ -1,6 +1,6 @@
 <template>
-    <div class="register-finished">
-      <loader class="height-100 loader" :status="getStatus">
+  <div class="register-finished">
+    <loader class="height-100 loader" :status="getStatus">
       <div class="content-block-center">
         <b-row class="d-flex align-items-center justify-content-center row-block">
           <div v-if="error" class="alert alert-danger alert-block" role="alert">{{msg}}</div>
@@ -42,12 +42,12 @@
           </b-col>
         </b-row>
       </div>
-      </loader>
-    </div>
+    </loader>
+  </div>
 </template>
 <script>
-import {mapGetters, mapMutations} from "vuex"
-import {createUser} from "@/views/registration/api/api"
+import { mapGetters, mapMutations } from "vuex";
+import { createUser } from "@/views/registration/api/api";
 import Loader from "@/components/Loader";
 export default {
   name: "Register-finished",
@@ -60,23 +60,34 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("loader", ["getStatus"])
+    ...mapGetters("loader", ["getStatus"]),
+    ...mapGetters("registrationUser", ["getUser"])
+    
   },
   methods: {
     ...mapMutations("loader", ["setStatus"]),
+    ...mapMutations('user', ['createdUser']),
     onSubmit() {
       if (this.password == this.confirmPassword) {
         this.error = false;
-        this.$emit('bildUser', {password: this.password})
+        this.$emit("bildUser", { password: this.password });
+        this.createdUser({email: this.getUser.email, password: this.getUser.password})
         this.setStatus("LOADING");
-        createUser().then(response => {
-          console.log(response)
-          this.setStatus('LOADED')
-          this.$router.push({name: 'Login', params: {param: response}});
-        }).catch(err => {
-          console.error(err);
-          this.setStatus("LOADED");
-        });
+        createUser()
+          .then(response => {
+            this.setStatus("LOADED");
+            this.$router.push({
+              name: "Login",
+              params: {
+                param: response,
+                user: { email: this.getUser.email, password: this.getUser.password }
+              }
+            });
+          })
+          .catch(err => {
+            console.error(err);
+            this.setStatus("LOADED");
+          });
       } else {
         this.error = true;
         this.msg = "Hasła muszą się zgadzać!";

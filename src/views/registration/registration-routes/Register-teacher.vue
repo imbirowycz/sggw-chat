@@ -143,7 +143,7 @@ export default {
       evt.preventDefault();
       // Reset our form values
       this.form.email = "";
-      this.form.name = "";
+      this.form.firstName = "";
       this.form.fieldOfStudy = null;
       // Trick to reset/clear native browser form validation state
       this.show = false;

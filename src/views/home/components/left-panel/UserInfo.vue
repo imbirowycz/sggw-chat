@@ -3,17 +3,21 @@
       <div class="left-bar-header">
         <div class="user-info">
           <div class="user-foto">foto</div>
-          <span>Imię nazwisko</span>
+          <b>{{userGet.firstName}} {{userGet.lastName}}</b>
         </div>
         <span>Podstawowa informacja</span>
       </div>
   </div>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: "UserInfo",
   data() {
     return {};
+  },
+  computed: {
+    ...mapGetters('user', ['userGet'])
   }
 };
 </script>

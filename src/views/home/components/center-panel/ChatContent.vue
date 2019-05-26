@@ -1,10 +1,10 @@
 <template>
   <div class="chat">
-    <div class="post" v-for="(x,index) in 5" :key="index" :class="{right: index%2 == 0}">
+    <div class="post" v-for="(x,index) in messages" :key="index" :class="{right: user.id == x.id}">
       <div class="msg">
-        <div>Post numer: {{index+1}}</div>
+        <small>from: {{x.name}}</small>
         <div>
-          <span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus minima maiores deleniti corrupti earum excepturi, architecto voluptatum aperiam mollitia totam aliquid nesciunt debitis perspiciatis officia aliquam dolores quisquam fugiat dolorem!</span>
+          <span>{{x.message}}</span>
         </div>
       </div>
     </div>
@@ -13,6 +13,10 @@
 <script>
 export default {
   name: "ChatContent",
+  props: {
+    messages: Array,
+    user: Object
+  },
   data() {
     return {};
   }

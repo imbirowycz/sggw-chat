@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     ...mapGetters("loader", ["getStatus"]),
-    ...mapGetters("registrationUser", ["getUser"])
+    ...mapGetters("user", ["userGet"])
     
   },
   methods: {
@@ -71,7 +71,7 @@ export default {
       if (this.password == this.confirmPassword) {
         this.error = false;
         this.$emit("bildUser", { password: this.password });
-        this.createdUser({email: this.getUser.email, password: this.getUser.password})
+        this.$emit('finishedBildUser')
         this.setStatus("LOADING");
         createUser()
           .then(response => {
@@ -80,7 +80,7 @@ export default {
               name: "Login",
               params: {
                 param: response,
-                user: { email: this.getUser.email, password: this.getUser.password }
+                user: { email: this.userGet.email, password: this.userGet.password }
               }
             });
           })

@@ -1,7 +1,13 @@
 <template>
   <div class="center-bar-footer">
     <div class="msg-writer">
-      <h4>Napisz wiadomość....</h4>
+      <textarea
+        class="text-area-box"
+        type="text"
+        placeholder="Napisz wiadomość..."
+        v-model="message"
+        @keypress.enter.prevent="sentMessage"
+      ></textarea>
     </div>
     <div class="msg-footer"></div>
   </div>
@@ -10,7 +16,15 @@
 export default {
   name: "ChatFooter",
   data() {
-    return {};
+    return {
+      message: ""
+    };
+  },
+  methods: {
+    sentMessage() {
+      this.$emit("messageToParent", this.message);
+      this.message = "";
+    }
   }
 };
 </script>
@@ -29,5 +43,13 @@ export default {
   .msg-footer {
     flex: 1 1;
   }
+}
+.text-area-box {
+  width: 100%;
+  height: 100%;
+}
+textarea {
+  resize: none;
+  outline: none;
 }
 </style>

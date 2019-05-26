@@ -1,12 +1,11 @@
 <template xmlns:v-model="http://www.w3.org/1999/xhtml">
   <loader :status="status">
     <div class="hello">
-
       <div class="hello-info">
         <!-- <div class="hello-info__logo"></div> -->
         <div class="hello-info__content" v-if="!param">
           <!-- <h1 class="hello-info__content--name">Twitter _ academic</h1> -->
-          
+
           <h1 class="hello-info__content--name">jakas nazwa</h1>
 
           <ul>
@@ -22,7 +21,7 @@
             </li>
           </ul>
         </div>
-        <div v-else class="info-message"> {{param}}</div>
+        <div v-else class="info-message">{{param}}</div>
       </div>
       <div class="hello-option">
         <div class="hello-option__center">
@@ -91,7 +90,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("user", ["loginUser"]),
+    ...mapGetters("user", ["loginUser", "userGet", "userMock"]),
     /**
      * @return {boolean}
      */
@@ -104,9 +103,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("user", ["createdUser"]),
+    ...mapMutations("user", ["userCreate"]),
     login: function() {
-      console.log('walidacja danych')
+      console.log("walidacja danych");
       // check valid email
       this.erroList = [];
       if (!this.email.data == "") {
@@ -144,14 +143,14 @@ export default {
         if (this.loginUser(user)) {
           this.status = "LOADING";
           setTimeout(x => {
-            this.createdUser(user);
-            this.$router.push("/");
+            if (this.userGet == null) this.userCreate(this.userMock);
             this.status = "LOADED";
+            this.$router.push("/");
           }, 2000);
         } else {
-          // console.log('Użytkownik z takimi danymi nie odnaleziony!')
+          console.log('Użytkownik z takimi danymi nie odnaleziony!')
         }
-      } else console.error('validacja nieudana!');
+      } else console.error("validacja nieudana!");
     },
     linkRegister() {
       this.$router.push("/registration");
@@ -227,13 +226,13 @@ export default {
     background: $green;
     width: 50%;
     margin-right: 0.3rem;
-  .info-message {
-    width: 60%;
-        font-size: 2rem;
-        font-family: "Roboto", cursive;
-        font-weight: 600;
-        color: $pink;
-      }
+    .info-message {
+      width: 60%;
+      font-size: 2rem;
+      font-family: "Roboto", cursive;
+      font-weight: 600;
+      color: $pink;
+    }
     .hello-info__logo {
       position: absolute;
       width: 8rem;

@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <router-view v-on:setStatus="setStatus" v-on:bildUser="bildUser">
+      <router-view v-on:setStatus="setStatus" v-on:bildUser="bildUser" @finishedBildUser="finishedBildUser">
       </router-view>
     </div>
 </template>
@@ -71,6 +71,7 @@ export default {
   },
   methods: {
     ...mapMutations('registrationUser', ['createdUser']),
+    ...mapMutations('user', ['userCreate']),
     steDecorator(value) {
       this.links.forEach(x => {
         if (x.url_1 == value || x.url_2 == value) x.isActive = true;
@@ -85,12 +86,13 @@ export default {
       this.status = status;
     },
     bildUser(payload) {
-      this.createdUser(payload);
-      // this.user = Object.assign(this.user, payload);
+      // this.createdUser(payload);
+      this.user = Object.assign(this.user, payload);
       console.log(this.user, "wywolano metode bildUser");
     },
     finishedBildUser() {
-      this.createdUser(this.user)
+      console.log('wywolano finishedBuildUser', this.user)
+      this.userCreate(this.user)
     }
   },
   beforeRouteUpdate(to, from, next) {

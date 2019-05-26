@@ -24,14 +24,14 @@ export default {
     test(val) {
     //   io.emit("customEmit", val);
       console.log(
-        'this method was fired by the socket server. eg: io.emit("customEmit", data)'
+        'this method was fired by the socket server. eg: io.emit("customEmit", data)', val
       );
     }
   },
   methods: {
     sentMessage() {
       alert("wuwolano");
-      this.$socket.emit("customEmit", 'kdjfkdjfkj');
+      this.$socket.emit("customEmit", this.message);
     },
     getData() {
       axios.get("http://localhost:3000/get").then(respnse => {

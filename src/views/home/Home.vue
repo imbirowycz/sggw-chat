@@ -7,8 +7,8 @@
     </div>
     <div class="center-bar">
       <chat-header></chat-header>
-      <chat-content></chat-content>
-      <chat-footer></chat-footer>
+      <chat-content :messages="messages" :user="userGet"></chat-content>
+      <chat-footer @messageToParent="sentMessage"></chat-footer>
     </div>
     <div class="right-bar">
       <div class="right-bar-header"></div>
@@ -28,8 +28,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-
+import { mapState, mapGetters, mapMutations } from "vuex";
 import UserInfo from "./components/left-panel/UserInfo";
 import OptionsMenu from "./components/left-panel/OptionsMenu";
 import ChatHeader from "./components/center-panel/ChatHeader";
@@ -44,12 +43,56 @@ export default {
     ChatContent,
     ChatFooter
   },
+  data () {
+    return {
+      messages: []
+    }
+  },
   computed: {
     // ...mapState({
     //     user: state => state.user != null ? state.user : 'undefinited'
     // }),
-    ...mapGetters("user", ["userGet"])
-  }
+    ...mapGetters("user", ["userGet"]),
+    ...mapState('user', {rabit: state => state.user})
+  },
+  sockets: {
+    connect() {
+      console.log("socket connect");
+    },
+    newMessage (value) {
+      this.messages.push(value);
+    }
+  },
+  methods: {
+    ...mapMutations('user', ["setUserId"]),
+    sentMessage(value) {
+      const userMsg = {
+        id: this.rabit.id,
+        message: value,
+        name: this.rabit.firstName
+      }
+      console.log("wuwolano sentMessage");
+      this.$socket.emit("newMessage", userMsg, err => {
+        if (err) console.log(err)
+      });
+    },
+    getData() {
+      axios.get("http://localhost:3000/get").then(respnse => {
+        this.dane = respnse.data;
+      });
+    },
+    initializeConnections () {
+      
+    }
+  },
+  mounted() {
+    this.$socket.emit("join", this.userGet, data => {
+        if (typeof data == 'string') console.log(data)
+        else {
+          this.setUserId(data.id);
+        }
+      });
+  },
 };
 </script>
 

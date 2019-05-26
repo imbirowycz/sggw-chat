@@ -1,15 +1,21 @@
 export default {
   namespaced: true,
   state: {
-    login: 'email@email.pl',
-    password: 'root123',
+    userMock: {
+      login: 'email@email.pl',
+      password: 'root123',
+      firstName: 'Admin',
+      lastName: 'Root',
+    },
     user: null,
   },
   mutations: {
-    createdUser(state, payload) {
-      // console.log(payload)
-      if (state.user == null) state.user = payload;
-
+    userCreate(state, payload) {
+      console.log(payload, 'create user')
+       state.user = payload;
+    },
+    setUserId(state, payload) {
+      state.user.id = payload;
     },
     setUserStatus(state, payload) {
       console.log('wywolano state z parametrem: ', payload);
@@ -31,11 +37,14 @@ export default {
   },
   getters: {
     userGet(state) {
-      return state.user;
+       return state.user;
+    },
+    userMock(state) {
+      return state.userMock;
     },
     loginUser(state) {
       if (state.user != null) {
-        console.log('user is not null')
+        console.log('user is not null');
         return param => {
           if (
             state.user.email == param.email &&
@@ -45,9 +54,13 @@ export default {
           else return false;
         };
       } else {
+        console.log('else')
         return param => {
-          if (state.login == param.email && state.password == param.password)
+          if (state.userMock.login == param.email && state.userMock.password == param.password){
+            
             return true;
+          }
+            
           else return false;
         };
       }

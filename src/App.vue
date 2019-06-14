@@ -1,27 +1,13 @@
 <template>
   <div id="app" class="scroll-style height-100">
-    <!--nawigacja strony-->
-    <header id="nav" v-if="view">
-      <h1>Header --> 'Nawigacja strony'</h1>
-      <router-link to="/">Hello</router-link>
-      <router-link to="/callservice">Service</router-link>
-      <router-link to="/bootstrap">Bootstrap</router-link>
-      <router-link to="/user">User</router-link>
-    </header>
-
     <section class="main height-100" >
-      <sidebar class="sidebar" v-if="view"></sidebar>
       <router-view :hellomsg="msg" class="routerView"></router-view>
     </section>
-
-    <footer class="footer" v-if="view">
-      <h2>Footer</h2>
-    </footer>
   </div>
 </template>
 
 <script>
-import sidebar from "./views/Sidebar";
+// import sidebar from "./views/Sidebar";
 
 export default {
   name: "app",
@@ -31,9 +17,6 @@ export default {
       view: false,
       user: {}
     };
-  },
-  components: {
-    sidebar
   },
   computed: {
     empty() {

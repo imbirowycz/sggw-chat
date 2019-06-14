@@ -5,7 +5,7 @@ export default {
       login: 'email@email.pl',
       password: 'root123',
       firstName: 'Admin',
-      lastName: 'Root',
+      lastName: '',
     },
     user: null,
   },

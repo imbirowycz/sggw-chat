@@ -22,7 +22,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .left-bar-options {
-      border: 1px solid black;
+      // border: 1px solid black;
       flex: 3 1;
       display: flex;
       flex-direction: column;

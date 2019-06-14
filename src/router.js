@@ -2,15 +2,11 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/home/Home';
 import Login from '@/views/login/Login';
-import Service from '@/views/Service';
-import Bootstrap from '@/views/Bootstrap';
-import User from '@/views/User';
 import Registration from './views/registration/Registration';
 import RegisterOption from './views/registration/registration-routes/Register-option';
 import RegisterTeacher from './views/registration/registration-routes/Register-teacher';
 import RegisterStudent from './views/registration/registration-routes/Register-students';
 import RegisterFinished from './views/registration/registration-routes/Register-finished';
-import Test from "@/views/TestConnect"
 import Auth from '@/auth.js'
 
 export default new Router({
@@ -20,11 +16,6 @@ export default new Router({
       name: 'Home',
       component: Home,
       beforeEnter: Auth
-    },
-    {
-      path: '/test',
-      name: 'Test',
-      component: Test,
     },
     {
       path: '/login',
@@ -63,23 +54,7 @@ export default new Router({
             component: RegisterFinished,
         }
       ],
-    },
-
-    {
-      path: '/callservice',
-      name: 'Service',
-      component: Service,
-    },
-    {
-      path: '/bootstrap',
-      name: 'Bootstrap',
-      component: Bootstrap,
-    },
-    {
-      path: '/user',
-      name: 'User',
-      component: User,
-    },
+    }
   ],
   // base: '/twitter-academic',
   mode: 'history'

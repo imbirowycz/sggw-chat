@@ -24,7 +24,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .chat {
-  border: 1px solid black;
+  // border-bottom: $border;
   flex: 4 1;
   padding: 20px;
   overflow-y: auto;
@@ -32,7 +32,7 @@ export default {
     width: 100%;
     margin-bottom: 20px;
     .msg {
-      border: 1px solid black;
+      border: $border;
       min-height: 30px;
       min-width: 30px;
       max-width: 60%;

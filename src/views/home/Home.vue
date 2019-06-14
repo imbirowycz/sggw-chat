@@ -3,7 +3,7 @@
     <div class="left-bar">
       <user-info></user-info>
       <options-menu></options-menu>
-      <div class="left-bar-footer"></div>
+      <!-- <div class="left-bar-footer"></div> -->
     </div>
     <div class="center-bar">
       <chat-header></chat-header>
@@ -97,6 +97,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
 .home {
   width: 100%;
   height: 100%;
@@ -104,7 +106,7 @@ export default {
   display: flex;
   .left-bar {
     width: 450px;
-    border: 1px solid black;
+    
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -115,16 +117,16 @@ export default {
   }
   .right-bar {
     width: 450px;
-    border: 1px solid black;
+    // border: 1px solid black;
     height: 100%;
     display: flex;
     flex-direction: column;
     &-header {
-      border: 1px solid black;
+      // border: 1px solid black;
       flex: 1 1;
     }
     &-options {
-      border: 1px solid black;
+      // border: 1px solid black;
       flex: 3 1;
     }
     &-footer {
@@ -136,10 +138,12 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+    border-right: $border;
+    border-left: $border;
   }
   .right-bar {
     width: 450px;
-    border: 1px solid black;
+    // border: 1px solid black;
     height: 100%;
   }
 }

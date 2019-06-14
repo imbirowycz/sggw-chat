@@ -37,7 +37,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid black;
+    // border-bottom: 1px solid black;
     flex: 3 1;
   }
   .msg-footer {
@@ -51,5 +51,10 @@ export default {
 textarea {
   resize: none;
   outline: none;
+  border-top: $border;
+  border-bottom: $border;
+  border-left: none;
+  border-right: none;
+  padding-left: 10px;
 }
 </style>

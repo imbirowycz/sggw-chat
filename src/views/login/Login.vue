@@ -5,7 +5,10 @@
         <!-- <div class="hello-info__logo"></div> -->
         <div class="hello-info__content" v-if="!param">
           <!-- <h1 class="hello-info__content--name">Twitter _ academic</h1> -->
-
+          <!-- <h3>
+            Internetowy portal dla nauczycieli akademickich wspierający komunikację
+            ze studentami
+          </h3> -->
           <h1 class="hello-info__content--name">jakas nazwa</h1>
 
           <ul>
@@ -148,7 +151,7 @@ export default {
             this.$router.push("/");
           }, 2000);
         } else {
-          console.log('Użytkownik z takimi danymi nie odnaleziony!')
+          console.log("Użytkownik z takimi danymi nie odnaleziony!");
         }
       } else console.error("validacja nieudana!");
     },

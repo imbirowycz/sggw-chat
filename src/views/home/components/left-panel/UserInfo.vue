@@ -2,7 +2,10 @@
   <div class="user-info">
       <div class="left-bar-header">
         <div class="user-info">
-          <div class="user-foto">foto</div>
+          <div class="user-foto">
+            <user-icon></user-icon>
+          </div>
+          <div></div>
           <b>{{userGet.firstName}} {{userGet.lastName}}</b>
         </div>
         <span>Podstawowa informacja</span>
@@ -11,8 +14,12 @@
 </template>
 <script>
 import {mapGetters} from 'vuex'
+import UserIcon from "@/components/icons/UserIcon"
 export default {
   name: "UserInfo",
+  components: {
+    UserIcon
+  },
   data() {
     return {};
   },
@@ -37,7 +44,13 @@ export default {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: grey;
+        // background-color: rgba(gray, 0.1);
+        border: 2px solid rgba(#007bff, .4);
+        svg {
+          height: 30px;
+          width: 30px;
+          fill: rgba(#007bff, .4);
+        }
       }
     }
 </style>

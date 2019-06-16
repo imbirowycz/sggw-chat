@@ -1,6 +1,12 @@
 <template>
   <div class="chat">
-    <div class="post" v-for="(x,index) in messages" :key="index" :class="{right: user.id == x.id}">
+    <div
+      class="post"
+      v-for="(x,index) in messages"
+      :key="index"
+      :class="{right: user.id == x.id}"
+      ref="posts"
+    >
       <div class="msg">
         <small>from: {{x.name}}</small>
         <div>
@@ -11,11 +17,20 @@
   </div>
 </template>
 <script>
+import { setTimeout } from "timers";
 export default {
   name: "ChatContent",
   props: {
     messages: Array,
     user: Object
+  },
+  watch: {
+    messages() {
+      let div = document.querySelector('.chat')
+      setTimeout(() => {
+        div.scrollTop = div.scrollHeight;
+      });
+    }
   },
   data() {
     return {};
@@ -24,7 +39,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .chat {
-  // border-bottom: $border;
   flex: 4 1;
   padding: 20px;
   overflow-y: auto;

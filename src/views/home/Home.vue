@@ -6,8 +6,8 @@
       <!-- <div class="left-bar-footer"></div> -->
     </div>
     <div class="center-bar">
-      <chat-header></chat-header>
-      <chat-content :messages="messages" :user="userGet"></chat-content>
+      <chat-header @connectToHomeRoom="connectToHomeRoom" @connectMessageRoom="connectMessageRoom"></chat-header>
+      <chat-content :messages="messages" :user="userGet" ref="content"></chat-content>
       <chat-footer @messageToParent="sentMessage"></chat-footer>
     </div>
     <div class="right-bar">
@@ -43,37 +43,41 @@ export default {
     ChatContent,
     ChatFooter
   },
-  data () {
+  data() {
     return {
       messages: []
-    }
+    };
   },
   computed: {
     // ...mapState({
     //     user: state => state.user != null ? state.user : 'undefinited'
     // }),
     ...mapGetters("user", ["userGet"]),
-    ...mapState('user', {rabit: state => state.user})
+    ...mapState("user", { rabit: state => state.user })
   },
   sockets: {
     connect() {
       console.log("socket connect");
     },
-    newMessage (value) {
+    newMessage(value) {
+      this.messages.push(value);
+    },
+    usersUpdate(value) {
       this.messages.push(value);
     }
   },
   methods: {
-    ...mapMutations('user', ["setUserId"]),
+    ...mapMutations("user", ["setUserId"]),
     sentMessage(value) {
       const userMsg = {
         id: this.rabit.id,
         message: value,
         name: this.rabit.firstName
-      }
+      };
       console.log("wuwolano sentMessage");
       this.$socket.emit("newMessage", userMsg, err => {
-        if (err) console.log(err)
+        alert("co jest");
+        if (err) console.log(err);
       });
     },
     getData() {
@@ -81,32 +85,39 @@ export default {
         this.dane = respnse.data;
       });
     },
-    initializeConnections () {
-      
-    }
+    connectToHomeRoom () {
+      console.log("wywolano connectHomeRoom");
+    },
+    connectMessageRoom () {
+      console.log("wywolano connectChatRoom");
+      this.$socket.emit("changeRoom", {oldRoom: '112233', currentRoom: '00990099'}, err => {
+        alert("co jest");
+        if (err) console.log(err);
+      });
+
+    },
+    initializeConnections() {}
   },
   mounted() {
-    this.$socket.emit("join", this.userGet, data => {
-        if (typeof data == 'string') console.log(data)
-        else {
-          this.setUserId(data.id);
-        }
-      });
-  },
+    this.$socket.emit("join", { name: this.userGet.firstName }, data => {
+      if (typeof data == "string") console.log(data);
+      else {
+        console.log("data.id", data);
+        this.setUserId(data.id);
+      }
+    });
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-
-
 .home {
   width: 100%;
   height: 100%;
-  //   background-color: $pink;
   display: flex;
   .left-bar {
     width: 450px;
-    
+
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -117,16 +128,13 @@ export default {
   }
   .right-bar {
     width: 450px;
-    // border: 1px solid black;
     height: 100%;
     display: flex;
     flex-direction: column;
     &-header {
-      // border: 1px solid black;
       flex: 1 1;
     }
     &-options {
-      // border: 1px solid black;
       flex: 3 1;
     }
     &-footer {
@@ -143,7 +151,6 @@ export default {
   }
   .right-bar {
     width: 450px;
-    // border: 1px solid black;
     height: 100%;
   }
 }

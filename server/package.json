@@ -4,7 +4,10 @@
   "description": "server node",
   "main": "index.js",
   "scripts": {
-    "start": "node ./server.js"
+    "project": "npm run nodemon | npm run vue",
+    "start": "node ./server.js",
+    "hot": "nodemon ./server.js",
+    "vue": "cd .. && npm run serve"
   },
   "author": "Andrzej Imbirowycz",
   "license": "ISC",
@@ -14,5 +17,8 @@
     "express": "^4.17.0",
     "morgan": "^1.9.1",
     "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

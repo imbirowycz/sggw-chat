@@ -7,7 +7,9 @@ import RegisterOption from './views/registration/registration-routes/Register-op
 import RegisterTeacher from './views/registration/registration-routes/Register-teacher';
 import RegisterStudent from './views/registration/registration-routes/Register-students';
 import RegisterFinished from './views/registration/registration-routes/Register-finished';
-import Auth from '@/auth.js'
+import Test from './views/Test';
+
+import Auth from '@/auth.js';
 
 export default new Router({
   routes: [
@@ -15,7 +17,12 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      beforeEnter: Auth
+      beforeEnter: Auth,
+    },
+    {
+      path: '/test',
+      name: 'Test',
+      component: Test,
     },
     {
       path: '/login',
@@ -49,26 +56,26 @@ export default new Router({
           component: RegisterStudent,
         },
         {
-            path: 'options/:name/finished',
-            name: 'Register-finished',
-            component: RegisterFinished,
-        }
+          path: 'options/:name/finished',
+          name: 'Register-finished',
+          component: RegisterFinished,
+        },
       ],
-    }
+    },
   ],
   // base: '/twitter-academic',
-  mode: 'history'
- // scrollBehavior(to, from, savedPosition) {
-    // if (to.path === '/registration/options') {
-    //     return false
-    //    }
-    //   console.log(savedPosition)
-    //   if (to.hash) return {selector: to.hash}
-    // if (savedPosition) {
-    //   return savedPosition;
-    // } else {
-    //   return {x: 0, y: 0};
-    // }
+  mode: 'history',
+  // scrollBehavior(to, from, savedPosition) {
+  // if (to.path === '/registration/options') {
+  //     return false
+  //    }
+  //   console.log(savedPosition)
+  //   if (to.hash) return {selector: to.hash}
+  // if (savedPosition) {
+  //   return savedPosition;
+  // } else {
+  //   return {x: 0, y: 0};
+  // }
   //},
 });
 

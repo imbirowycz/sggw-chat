@@ -82,16 +82,13 @@ export default {
       });
     },
     setStatus(status) {
-      console.log("wywolano setStatus");
       this.status = status;
     },
     bildUser(payload) {
       // this.createdUser(payload);
       this.user = Object.assign(this.user, payload);
-      console.log(this.user, "wywolano metode bildUser");
     },
     finishedBildUser() {
-      console.log('wywolano finishedBuildUser', this.user)
       this.userCreate(this.user)
     }
   },

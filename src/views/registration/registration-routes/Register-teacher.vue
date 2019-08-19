@@ -135,7 +135,6 @@ export default {
     ...mapMutations("loader", ["setStatus"]),
     onSubmit(evt) {
       evt.preventDefault();
-      console.log(this.form);
       this.$emit("bildUser", this.form);
       this.$router.push("/registration/options/teacher/finished");
     },

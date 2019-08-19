@@ -86,7 +86,6 @@ export default {
         message: value,
         name: this.rabit.firstName
       };
-      console.log("wuwolano sentMessage");
       this.$socket.emit("newMessage", userMsg, err => {
         alert("co jest");
         if (err) console.log(err);
@@ -115,7 +114,6 @@ export default {
     this.$socket.emit("join", { name: this.userGet.firstName }, data => {
       if (typeof data == "string") console.log(data);
       else {
-        console.log("data.id", data);
         this.setUserId(data.id);
       }
     });

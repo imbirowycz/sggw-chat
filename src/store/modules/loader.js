@@ -10,7 +10,6 @@ export default {
   },
   mutations: {
     setStatus (state, payload){
-      console.log(payload)
         state.status = payload
     }
    },

@@ -112,8 +112,6 @@ export default {
   methods: {
     ...mapMutations("user", ["userCreate"]),
     login: function() {
-      console.log("walidacja danych");
-      // check valid email
       this.erroList = [];
       if (!this.email.data == "") {
         if (
@@ -147,7 +145,6 @@ export default {
           password: this.password.data
         };
         axios.post("http://localhost:3000/auth/login", {email: this.email.data, password: this.password.data}).then(respnse => {
-          console.log(JSON.stringify(respnse.data))
           let data = respnse.data;
           localStorage.setItem("userChat",JSON.stringify({auth: data.auth, token: data.token, user: data.user}))
         this.userCreate(data.user);

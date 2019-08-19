@@ -150,7 +150,6 @@ export default {
     ...mapMutations("loader", ["setStatus"]),
     onSubmit(evt) {
       evt.preventDefault();
-      console.log(this.form);
       this.$emit("bildUser", this.form);
       this.$router.push("/registration/options/student/finished");
     },
@@ -173,7 +172,6 @@ export default {
       this.setStatus("LOADING");
       Promise.all([getFieldsOfStudy(), getYears()])
         .then(response => {
-          console.log(response);
           this.fieldsOfStudy = response[0];
           this.years = response[1];
           this.setStatus("LOADED");

@@ -5,10 +5,7 @@ import {
   fieldsOfStudy,
   years,
 } from './mockApi';
-// function alert () {
-//   console.log(degressList, 'alert')
-// }
-// alert()
+
 const getDepress = function() {
   return new Promise((resolve, rejects) => {
     setTimeout(() => {

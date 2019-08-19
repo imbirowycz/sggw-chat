@@ -14,7 +14,7 @@ const scientificsList = [
     text: 'Ochrona własności intelektualnej',
   },
   {
-    value: 'Wychowanie fizyczne (tylko studia stacjonarne',
+    value: 'Wychowanie fizyczne (tylko studia stacjonarne)',
     text: 'Wychowanie fizyczne (tylko studia stacjonarne',
   },
   {value: 'Szkolenie BHP', text: 'Szkolenie BHP'},
@@ -28,16 +28,16 @@ const scientificsList = [
   },
   {value: 'Technologia informacyjna', text: 'Technologia informacyjna'},
   {
-    value: 'Myślenie projektowe (tylko studia stacjonarne',
+    value: 'Myślenie projektowe (tylko studia stacjonarne)',
     text: 'Myślenie projektowe (tylko studia stacjonarne',
   },
   {
-    value: 'Komunikacja w biznesie (tylko studia stacjonarne',
+    value: 'Komunikacja w biznesie (tylko studia stacjonarne)',
     text: 'Komunikacja w biznesie (tylko studia stacjonarne',
   },
   {
-    value: 'Przedsiębiorczość innowacyjna (tylko studia stacjonarne',
-    text: 'Przedsiębiorczość innowacyjna (tylko studia stacjonarne',
+    value: 'Przedsiębiorczość innowacyjna (tylko studia stacjonarne)',
+    text: 'Przedsiębiorczość innowacyjna (tylko studia stacjonarne)',
   },
   {value: 'Matematyka', text: 'Matematyka'},
   {value: 'Matematyka dyskretna', text: 'Matematyka dyskretna'},
@@ -60,10 +60,6 @@ const scientificsList = [
   {
     value: 'Technologie sieciowe (CCNA)',
     text: 'Technologie sieciowe (CCNA)',
-  },
-  {
-    value: 'Języki i paradygmaty programowania',
-    text: 'Języki i paradygmaty programowania',
   },
   {
     value: 'Języki i paradygmaty programowania',

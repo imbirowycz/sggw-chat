@@ -8,8 +8,11 @@
           <!-- <h3>
             Internetowy portal dla nauczycieli akademickich wspierający komunikację
             ze studentami
-          </h3> -->
-          <h1 class="hello-info__content--name">jakas nazwa</h1>
+          </h3>-->
+          <h1 class="hello-info__content--name">
+            Internetowy portal dla nauczycieli akademickich wspierający komunikację
+            ze studentami
+          </h1>
 
           <ul>
             <li class="hello-info__content--description">🧐 Obserwuj co się dzieje na uczelni</li>
@@ -65,6 +68,7 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import Loader from "@/components/Loader";
+import axios from 'axios'
 // import {AXIOS} from '../main'
 export default {
   name: "login",
@@ -124,35 +128,34 @@ export default {
         this.email.valid = true;
         this.email.message = "*Połe nie morze być puste!";
       }
-
+      this.password.valid = false;
       //check valid password
-      if (!this.password.data == "") {
-        if (this.password.data.length > 6 && this.password.data.length < 12) {
-          this.password.valid = false;
-        } else {
-          this.password.message = "*Nie poprawna długość hasła!";
-          this.password.valid = true;
-        }
-      } else {
-        this.password.valid = true;
-        this.password.message = "*Połe nie morze być puste!";
-      }
+      // if (!this.password.data == "") {
+      //   if (this.password.data.length > 6 && this.password.data.length < 12) {
+      //     this.password.valid = false;
+      //   } else {
+      //     this.password.message = "*Nie poprawna długość hasła!";
+      //     this.password.valid = true;
+      //   }
+      // } else {
+      //   this.password.valid = true;
+      //   this.password.message = "*Połe nie morze być puste!";
+      // }
       if (!this.email.valid && !this.password.valid) {
         let user = {
           email: this.email.data,
           password: this.password.data
         };
-        // alert(this.loginUser(user));
-        if (this.loginUser(user)) {
-          this.status = "LOADING";
-          setTimeout(x => {
-            if (this.userGet == null) this.userCreate(this.userMock);
-            this.status = "LOADED";
-            this.$router.push("/");
-          }, 2000);
-        } else {
-          console.log("Użytkownik z takimi danymi nie odnaleziony!");
-        }
+        axios.post("http://localhost:3000/auth/login", {email: this.email.data, password: this.password.data}).then(respnse => {
+          console.log(JSON.stringify(respnse.data))
+          let data = respnse.data;
+          localStorage.setItem("userChat",JSON.stringify({auth: data.auth, token: data.token, user: data.user}))
+        this.userCreate(data.user);
+        this.$router.push("/");
+      }).catch(error => {
+        console.log(error)
+      })
+    
       } else console.error("validacja nieudana!");
     },
     linkRegister() {
@@ -254,6 +257,10 @@ export default {
       }
     }
     .hello-info__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       ul > li {
         align-items: center;
         display: flex;
@@ -268,11 +275,15 @@ export default {
         }
       }
       .hello-info__content--name {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
         font-family: "Permanent Marker", cursive;
         font-weight: 600;
         color: $pink;
-        margin-bottom: 0.7rem;
+        // margin-bottom: 0.7rem;
+        max-width: 70%;
+        // text-align: center;
+        padding: 0;
+        margin: 0;
       }
       .hello-info__content--description {
         font-size: 1.5rem;

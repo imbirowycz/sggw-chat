@@ -6,4 +6,4 @@ const ticherMock = {
   lastName: 'Imbirowycz',
   numberAl: null,
   scientific: [{text: 'Język obcy', value: 'kdjfkdfjk'}],
-};
+};  

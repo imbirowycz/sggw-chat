@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import axios from 'axios'
 import store from "./store/store.js"
 import VueSocketio from 'vue-socket.io-extended';
 import io from 'socket.io-client';
@@ -18,9 +17,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import loader from '@/components/Loader'
 Vue.component('loader', loader)
 
-export const AXIOS = axios.create({
-  baseURL: `/api`
-});
+
 
 Vue.config.productionTip = false
 

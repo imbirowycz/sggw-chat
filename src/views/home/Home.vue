@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <div class="left-bar">
+      <button @click="checkConnect()">Connect</button>
       <user-info></user-info>
       <options-menu></options-menu>
       <!-- <div class="left-bar-footer"></div> -->
@@ -34,6 +35,7 @@ import OptionsMenu from "./components/left-panel/OptionsMenu";
 import ChatHeader from "./components/center-panel/ChatHeader";
 import ChatContent from "./components/center-panel/ChatContent";
 import ChatFooter from "./components/center-panel/ChatFooter";
+import http from '@/http/http'
 export default {
   name: "Home",
   components: {
@@ -45,7 +47,8 @@ export default {
   },
   data() {
     return {
-      messages: []
+      messages: [],
+      token: null
     };
   },
   computed: {
@@ -57,7 +60,7 @@ export default {
   },
   sockets: {
     connect() {
-      console.log("socket connect");
+      console.log("socket connect");  
     },
     newMessage(value) {
       this.messages.push(value);
@@ -68,6 +71,15 @@ export default {
   },
   methods: {
     ...mapMutations("user", ["setUserId"]),
+    checkConnect () {
+       http.post("http://localhost:3000/auth/test").then(respnse => {
+        // this.userCreate(respnse.data);
+        // this.$router.push("/");
+        console.log('home checkConnect: ', respnse.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
     sentMessage(value) {
       const userMsg = {
         id: this.rabit.id,
@@ -99,6 +111,7 @@ export default {
     initializeConnections() {}
   },
   mounted() {
+    this.token = JSON.parse(localStorage.getItem("userChat")).token
     this.$socket.emit("join", { name: this.userGet.firstName }, data => {
       if (typeof data == "string") console.log(data);
       else {

@@ -11,23 +11,22 @@ export default {
   },
   mutations: {
     userCreate(state, payload) {
-      console.log(payload, 'create user')
        state.user = payload;
     },
     setUserId(state, payload) {
       state.user.id = payload;
     },
     setUserStatus(state, payload) {
-      console.log('wywolano state z parametrem: ', payload);
       state.user.userStatus = payload;
-      console.log(state.user);
     },
+    logOutUser (state) {
+      state.user = null;
+    }
   },
   actions: {
     createAd({commit}, payload) {
       const id = Math.floor(Math.random() * 11);
       payload.id = id.toString();
-      console.log(payload);
 
       commit('createAd', payload);
     },
@@ -44,7 +43,6 @@ export default {
     },
     loginUser(state) {
       if (state.user != null) {
-        console.log('user is not null');
         return param => {
           if (
             state.user.email == param.email &&
@@ -54,7 +52,6 @@ export default {
           else return false;
         };
       } else {
-        console.log('else')
         return param => {
           if (state.userMock.login == param.email && state.userMock.password == param.password){
             

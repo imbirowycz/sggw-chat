@@ -1,13 +1,8 @@
-const configDB = {
-  multipleStatements: true,
-  host: 'localhost',
-  user: 'root',
-  password: 'Globus24.',
-  database: 'sggwDB',
-};
-const database = require('../classes/database')(configDB);
+const database = require('../database');
 const jwt = require('jsonwebtoken');
 const secret = require('./secret');
+const bcrypt = require('bcrypt');
+
 exports.login = (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
@@ -18,7 +13,9 @@ exports.login = (req, res) => {
       )
       .then(rows => {
         if (rows.length > 0) {
-          let token = jwt.sign({ id: rows[0].id_account }, secret.secret, { expiresIn: 300}) // expires in 24 hours
+          let token = jwt.sign({id: rows[0].id_account}, secret.secret, {
+            expiresIn: 86400,
+          }); // expires in 24 hours
           if (
             rows[0].accountType == 'students' ||
             rows[0].accountType == 'ticher'
@@ -30,7 +27,7 @@ exports.login = (req, res) => {
                 }`
               )
               .then(user => {
-                res.status(200).json({auth: true, token: token,user: user[0]});
+                res.status(200).json({auth: true, token: token, user: user[0]});
                 res.end();
               });
           } else {
@@ -51,12 +48,26 @@ exports.login = (req, res) => {
     res.end();
   }
 };
-exports.logout = (req, res) => {    
+exports.logout = (req, res) => {
   //TODO
-
-  if (true) {
-    console.log('tak taka sesiaj istnieje :)');
-  } else {
-    console.log('niestety niema dostępu :(');
-  }
+  database
+    .query(
+      `INSERT INTO token (token, dateCreated) value ('${
+        req.headers.token
+      }', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}')`
+    )
+    .then(row => {
+      res
+        .status(401)
+        .send({auth: false, message: 'Failed to authenticate token!'});
+      res.end();
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
+exports.init = (req, res) => {
+  //TODO
+  res.json('auth ok :)');
+};
+

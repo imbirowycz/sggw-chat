@@ -4,7 +4,7 @@ import router from '@/router';
 
 let config = {
   headers: {},
-  timeout: 30000, // globalny timeout zeby polepszyc UI experience
+  timeout: 30000, // globalny timeout zeby polepszyc UI experience,
 };
 
 let httpAxios = axios.create(config);
@@ -14,7 +14,7 @@ let beforeRequest = async config => {
   if (localStorage.getItem('userChat')) {
     token = JSON.parse(localStorage.getItem('userChat')).token;
   }
-  config.baseURL = '/api';
+  config.baseURL = 'http://localhost:3000/api/';
   config.headers.token = token;
   return config;
 };

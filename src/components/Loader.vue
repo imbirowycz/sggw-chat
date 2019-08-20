@@ -1,36 +1,32 @@
 <template>
-  <div class="loader height-100 d-flex justify-content-center align-items-center" style="widht: 100%"  >
-    <slot v-if="status == 'LOADED'" class="height-100"></slot>
-    <div class="color-spiner lds-spinner" v-else-if="status == 'LOADING'">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+  <div class="loader height-100" style="widht: 100%">
+    <div class="height-100 d-flex justify-content-center align-items-center" style="widht: 100%">
+      <div class="color-spiner lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-    <slot name="LOADER_ERROR" v-else></slot>
   </div>
 </template>
 <script>
 export default {
-    name: 'Loader',
-    props: {
-        status: String,
-        default: "LOADED"
-    }
-}
+  name: "Loader"
+};
 </script>
 <style lang="scss" scoped>
 @import "@/assets/styles/variables.scss";
 .loader {
-    // background-color: $pink;
+  // background-color: $pink;
 }
 .lds-spinner {
   color: official;
@@ -104,8 +100,8 @@ export default {
 }
 .color-spiner {
   .lds-spinner div:after {
-  background: $pink;
-}
+    background: $pink;
+  }
 }
 @keyframes lds-spinner {
   0% {
@@ -115,5 +111,4 @@ export default {
     opacity: 0;
   }
 }
-
 </style>

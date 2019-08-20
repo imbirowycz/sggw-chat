@@ -18,7 +18,6 @@
     </div>
 </template>
 <script>
-import Loader from "@/components/Loader";
 import {mapGetters, mapMutations} from "vuex"
 export default {
   name: "Registration",

@@ -11,6 +11,15 @@ export default {
   mutations: {
     setStatus (state, payload){
         state.status = payload
+    },
+    setLoaded (state) {
+      state.status = "LOADED"
+    },
+    setLoading(state) {
+      state.status = "LOADING"
+    },
+    setError(state) {
+      state.status = "ERROR"
     }
    },
 };

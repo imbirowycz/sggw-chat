@@ -54,10 +54,8 @@ export default {
       } else {
         return param => {
           if (state.userMock.login == param.email && state.userMock.password == param.password){
-            
             return true;
           }
-            
           else return false;
         };
       }

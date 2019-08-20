@@ -1,5 +1,4 @@
 <template xmlns:v-model="http://www.w3.org/1999/xhtml">
-  <loader :status="status">
     <div class="hello">
       <div class="hello-info">
         <!-- <div class="hello-info__logo"></div> -->
@@ -62,19 +61,14 @@
         </div>
       </div>
     </div>
-  </loader>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import Loader from "@/components/Loader";
-import axios from 'axios'
+import http from '@/http/http'
 // import {AXIOS} from '../main'
 export default {
   name: "login",
-  components: {
-    Loader
-  },
   props: {
     param: String,
     user: Object
@@ -82,7 +76,6 @@ export default {
   // props: { hellomsg: { type: String, required: true } },
   data() {
     return {
-      status: "LOADED",
       email: {
         data: "",
         valid: false,
@@ -111,6 +104,7 @@ export default {
   },
   methods: {
     ...mapMutations("user", ["userCreate"]),
+    ...mapMutations("loader", ["setLoaded", "setLoading"]),
     login: function() {
       this.erroList = [];
       if (!this.email.data == "") {
@@ -144,12 +138,15 @@ export default {
           email: this.email.data,
           password: this.password.data
         };
-        axios.post("http://localhost:3000/auth/login", {email: this.email.data, password: this.password.data}).then(respnse => {
+        this.setLoading()
+        http.post("auth/login", {email: this.email.data, password: this.password.data}).then(respnse => {
           let data = respnse.data;
           localStorage.setItem("userChat",JSON.stringify({auth: data.auth, token: data.token, user: data.user}))
+          this.setLoaded()
         this.userCreate(data.user);
         this.$router.push("/");
       }).catch(error => {
+        this.setLoaded()
         console.log(error)
       })
     

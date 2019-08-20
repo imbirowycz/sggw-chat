@@ -1,6 +1,5 @@
 <template>
   <div class="register-finished">
-    <loader class="height-100 loader" :status="getStatus">
       <div class="content-block-center">
         <b-row class="d-flex align-items-center justify-content-center row-block">
           <div v-if="error" class="alert alert-danger alert-block" role="alert">{{msg}}</div>
@@ -42,13 +41,11 @@
           </b-col>
         </b-row>
       </div>
-    </loader>
   </div>
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { createUser } from "@/views/registration/api/api";
-import Loader from "@/components/Loader";
 export default {
   name: "Register-finished",
   data() {
@@ -60,22 +57,21 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("loader", ["getStatus"]),
     ...mapGetters("user", ["userGet"])
     
   },
   methods: {
-    ...mapMutations("loader", ["setStatus"]),
+    ...mapMutations("loader", ["setLoading", "setLoaded"]),
     ...mapMutations('user', ['createdUser']),
     onSubmit() {
       if (this.password == this.confirmPassword) {
         this.error = false;
         this.$emit("bildUser", { password: this.password });
         this.$emit('finishedBildUser')
-        this.setStatus("LOADING");
+        this.setLoading();
         createUser()
           .then(response => {
-            this.setStatus("LOADED");
+            this.setLoaded();
             this.$router.push({
               name: "Login",
               params: {
@@ -86,7 +82,7 @@ export default {
           })
           .catch(err => {
             console.error(err);
-            this.setStatus("LOADED");
+            this.setLoaded();
           });
       } else {
         this.error = true;

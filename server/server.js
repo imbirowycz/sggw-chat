@@ -1,5 +1,4 @@
 // if nodemon don't work: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-const secret = 'supersecret';
 const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
@@ -11,42 +10,11 @@ const io = socketIO(server);
 const users = require('./classes/users')();
 const HOME_ROOM = '112233';
 var cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 var auth = require('./routes/auth');
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('combine'));
 app.use(cors());
-app.use('/auth', auth);
-
-// CORS middleware
-const allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', '*');
-  res.header('Access-Control-Allow-Headers', '*');
-  next();
-};
-app.use(allowCrossDomain);
-
-const authentication = (req, res, next) => {
-  let token = req.headers.token;
-  if (token) {
-    jwt.verify(token, secret, function(err) {
-      if (err) {
-        res
-          .status(401)
-          .send({auth: false, message: 'Failed to authenticate token!'});
-      }
-      else {
-        next();
-      }
-    });
-  } else {
-    res.status(401).send({auth: false, message: 'No token!'});
-  }
-};
-app.use(authentication);
+app.use('/api/auth', auth);
 
 io.on('connection', socket => {
   console.log('io conecdatation');
@@ -94,9 +62,6 @@ io.on('connection', socket => {
       message: `Welcome, change Name`,
     });
   });
-});
-app.post('/auth/test', (req, res) => {
-  res.json('aloha');
 });
 var port = process.env.PORT || 3000;
 

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="left-bar">
-      <button @click="checkConnect()">Connect</button>
+      <button @click="testLoader()">Test loader</button>
       <user-info></user-info>
       <options-menu></options-menu>
       <!-- <div class="left-bar-footer"></div> -->
@@ -35,7 +35,7 @@ import OptionsMenu from "./components/left-panel/OptionsMenu";
 import ChatHeader from "./components/center-panel/ChatHeader";
 import ChatContent from "./components/center-panel/ChatContent";
 import ChatFooter from "./components/center-panel/ChatFooter";
-import http from '@/http/http'
+import http from "@/http/http";
 export default {
   name: "Home",
   components: {
@@ -56,11 +56,11 @@ export default {
     //     user: state => state.user != null ? state.user : 'undefinited'
     // }),
     ...mapGetters("user", ["userGet"]),
-    ...mapState("user", { rabit: state => state.user })
+    ...mapState("user", { rabit: state => state.user }),
   },
   sockets: {
     connect() {
-      console.log("socket connect");  
+      console.log("socket connect");
     },
     newMessage(value) {
       this.messages.push(value);
@@ -71,14 +71,13 @@ export default {
   },
   methods: {
     ...mapMutations("user", ["setUserId"]),
-    checkConnect () {
-       http.post("http://localhost:3000/auth/test").then(respnse => {
-        // this.userCreate(respnse.data);
-        // this.$router.push("/");
-        console.log('home checkConnect: ', respnse.data)
-      }).catch(error => {
-        console.log(error)
-      })
+    ...mapMutations("loader", ["setLoaded", "setLoading"]),
+    testLoader() {
+      console.log('wowolano metodę testLoader')
+      this.setLoading();
+      setTimeout(() => {
+        this.setLoaded();
+      }, 300);
     },
     sentMessage(value) {
       const userMsg = {
@@ -96,21 +95,24 @@ export default {
         this.dane = respnse.data;
       });
     },
-    connectToHomeRoom () {
+    connectToHomeRoom() {
       console.log("wywolano connectHomeRoom");
     },
-    connectMessageRoom () {
+    connectMessageRoom() {
       console.log("wywolano connectChatRoom");
-      this.$socket.emit("changeRoom", {oldRoom: '112233', currentRoom: '00990099'}, err => {
-        alert("co jest");
-        if (err) console.log(err);
-      });
-
+      this.$socket.emit(
+        "changeRoom",
+        { oldRoom: "112233", currentRoom: "00990099" },
+        err => {
+          alert("co jest");
+          if (err) console.log(err);
+        }
+      );
     },
     initializeConnections() {}
   },
   mounted() {
-    this.token = JSON.parse(localStorage.getItem("userChat")).token
+    this.token = JSON.parse(localStorage.getItem("userChat")).token;
     this.$socket.emit("join", { name: this.userGet.firstName }, data => {
       if (typeof data == "string") console.log(data);
       else {

@@ -1,33 +1,43 @@
 <template>
   <div id="app" class="scroll-style height-100">
-    <section class="main height-100" >
+    <section class="main height-100" v-show="status == 'LOADED'">
       <router-view :hellomsg="msg" class="routerView"></router-view>
     </section>
+    <loader v-show="status == 'LOADING'"></loader>
   </div>
 </template>
 
 <script>
 // import sidebar from "./views/Sidebar";
+import http from "@/http/http"
+import {mapState} from "vuex"
+import Loader from "@/components/Loader"
 
 export default {
   name: "app",
+  components: {
+    Loader
+  },
   data() {
     return {
-      msg: "Welcome to your Vue.js powered Spring Boot App",
-      view: false,
-      user: {}
+      msg: "Welcome to your Vue.js powered Spring Boot App"
     };
   },
   computed: {
-    empty() {
-      if (this.user.length === 0) {
-        return (this.view = false);
-      } else {
-        return (this.view = true);
-      }
+   ...mapState("loader", { status: state => state.status })
+  },
+  methods: {
+    init () {
+       http.post('auth/init').then(res => {
+      console.log(res.data)
+    }).catch(err => {
+      console.log(err.response)
+    })
     }
   },
-  mounted: function() {}
+  mounted: function() {
+    this.init()
+  }
 };
 </script>
 

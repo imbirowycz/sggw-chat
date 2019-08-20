@@ -1,101 +1,99 @@
 
 <template>
   <div class="register-teacher height-100">
-    <loader class="height-100" :status="getStatus">
-      <div class="content-block-center">
-        <b-row class="justify-content-center p-4">
-          <b-col cols="12" class>
-            <h4 class="text-center">Proszę wypełnić poniższy formularz:</h4>
-            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-              <div class="d-flex flex-wrap">
-                <div class="box-form">
-                  <b-form-group id="input-group-name" label="Imię:" label-for="input-name">
-                    <b-form-input
-                      id="input-name"
-                      v-model="form.firstName"
-                      type="text"
-                      required
-                      placeholder="Wprowadź imię"
-                    ></b-form-input>
-                  </b-form-group>
+    <div class="content-block-center">
+      <b-row class="justify-content-center p-4">
+        <b-col cols="12" class>
+          <h4 class="text-center">Proszę wypełnić poniższy formularz:</h4>
+          <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+            <div class="d-flex flex-wrap">
+              <div class="box-form">
+                <b-form-group id="input-group-name" label="Imię:" label-for="input-name">
+                  <b-form-input
+                    id="input-name"
+                    v-model="form.firstName"
+                    type="text"
+                    required
+                    placeholder="Wprowadź imię"
+                  ></b-form-input>
+                </b-form-group>
 
-                  <b-form-group
-                    id="input-group-last-name"
-                    label="Nazwisko:"
-                    label-for="input-last-name"
-                  >
-                    <b-form-input
-                      id="input-last-name"
-                      v-model="form.lastName"
-                      type="text"
-                      required
-                      placeholder="Wprowadź nazwisko"
-                    ></b-form-input>
-                  </b-form-group>
+                <b-form-group
+                  id="input-group-last-name"
+                  label="Nazwisko:"
+                  label-for="input-last-name"
+                >
+                  <b-form-input
+                    id="input-last-name"
+                    v-model="form.lastName"
+                    type="text"
+                    required
+                    placeholder="Wprowadź nazwisko"
+                  ></b-form-input>
+                </b-form-group>
 
-                  <b-form-group id="input-group-1" label="Email:" label-for="input-1">
-                    <b-form-input
-                      id="input-1"
-                      v-model="form.email"
-                      type="email"
-                      required
-                      placeholder="Wprowadź email"
-                    ></b-form-input>
-                  </b-form-group>
-                </div>
-                <div class="box-form">
-                  <b-form-group id="input-group-3" label="Stopień naukowy:" label-for="degree">
-                    <b-form-select
-                      id="degree"
-                      v-model="form.degree"
-                      :options="degreeOptions"
-                      required
-                    ></b-form-select>
-                  </b-form-group>
+                <b-form-group id="input-group-1" label="Email:" label-for="input-1">
+                  <b-form-input
+                    id="input-1"
+                    v-model="form.email"
+                    type="email"
+                    required
+                    placeholder="Wprowadź email"
+                  ></b-form-input>
+                </b-form-group>
+              </div>
+              <div class="box-form">
+                <b-form-group id="input-group-3" label="Stopień naukowy:" label-for="degree">
+                  <b-form-select
+                    id="degree"
+                    v-model="form.degree"
+                    :options="degreeOptions"
+                    required
+                  ></b-form-select>
+                </b-form-group>
 
-                  <!-- <b-form-group id="scientific-label" label="Przedmiot:" label-for="scientific">
+                <!-- <b-form-group id="scientific-label" label="Przedmiot:" label-for="scientific">
             <b-form-select
               id="scientific"
               v-model="form.scientific"
               :options="scientificOptions"
               required
             ></b-form-select>
-                  </b-form-group>-->
-                  <b-form-group label="Przedmiot(y):" label-for="degree">
-                    <multi-select
-                      id="multi-select"
-                      :options="scientificOptions"
-                      :selected-options="form.scientific"
-                      placeholder="wybierz przedmiot"
-                      @select="onSelect"
-                    ></multi-select>
-                  </b-form-group>
+                </b-form-group>-->
+                <b-form-group label="Przedmiot(y):" label-for="degree">
+                  <multi-select
+                    id="multi-select"
+                    :options="scientificOptions"
+                    :selected-options="form.scientific"
+                    placeholder="wybierz przedmiot"
+                    @select="onSelect"
+                  ></multi-select>
+                </b-form-group>
 
-                  <b-form-group id="faculty-input" label="Wydział:" label-for="faculty-input">
-                    <b-form-select
-                      id="faculty-input"
-                      v-model="form.faculty"
-                      :options="facultyOptions"
-                      required
-                    ></b-form-select>
-                  </b-form-group>
-                </div>
+                <b-form-group id="faculty-input" label="Wydział:" label-for="faculty-input">
+                  <b-form-select
+                    id="faculty-input"
+                    v-model="form.faculty"
+                    :options="facultyOptions"
+                    required
+                  ></b-form-select>
+                </b-form-group>
               </div>
-              <div class="box-form" style="widht: 100%;float: right;">
-                <b-button type="submit" variant="primary">Dalej</b-button>
-              </div>
+            </div>
+            <div class="box-form" style="widht: 100%;float: right;">
+              <b-button type="submit" variant="primary">Dalej</b-button>
+            </div>
 
-              <!-- <b-button type="reset" variant="danger">Reset</b-button> -->
-            </b-form>
-          </b-col>
-        </b-row>
-      </div>
-    </loader>
+            <!-- <b-button type="reset" variant="danger">Reset</b-button> -->
+          </b-form>
+        </b-col>
+      </b-row>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations } from "vuex";
 import { MultiSelect } from "vue-search-select";
 import {
   getDepress,
@@ -106,8 +104,7 @@ import {
 export default {
   name: "Register-teacher",
   components: {
-    MultiSelect,
-    
+    MultiSelect
   },
   data() {
     return {
@@ -125,14 +122,12 @@ export default {
       show: true,
       degreeOptions: [],
       scientificOptions: [],
-      facultyOptions: []
+      facultyOptions: [],
+      fetchCounter: 0
     };
   },
-  computed: {
-    ...mapGetters("loader", ["getStatus"])
-  },
   methods: {
-    ...mapMutations("loader", ["setStatus"]),
+    ...mapMutations("loader", ["setLoading", "setLoaded"]),
     onSubmit(evt) {
       evt.preventDefault();
       this.$emit("bildUser", this.form);
@@ -166,28 +161,24 @@ export default {
         _.isEqual
       );
     },
-    emitStatus(value) {
-      console.log("wywolano000000000", value);
-      let status = value;
-      this.$emit("setStatus", status);
-    },
     fetchResource() {
-      this.setStatus("LOADING");
+      this.setLoading();
       Promise.all([getDepress(), getScientifics(), getFacultys()])
         .then(values => {
           this.degreeOptions = values[0];
           this.scientificOptions = values[1];
           this.facultyOptions = values[2];
-          this.setStatus("LOADED");
         })
         .catch(err => {
           console.error(err);
-          this.setStatus("LOADED");
+        })
+        .finally(() => {
+          this.setLoaded();
         });
-      // this.$emit("setStatus", "LOADING");
+        
     }
   },
-  mounted() {
+  created() {
     this.fetchResource();
   }
 };

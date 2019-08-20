@@ -5,7 +5,7 @@ export default function (to, from, next) {
     if (store.getters['user/userGet'] != null) {
         next(true)
     }else if (locStor != null) {
-        store.commit('user/userCreate',JSON.parse(locStor))
+        store.commit('user/userCreate',JSON.parse(locStor).user)
         next(true)
     }else {
         next('/login')

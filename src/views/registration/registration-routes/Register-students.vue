@@ -1,6 +1,5 @@
 <template>
   <div class="register-student height-100">
-    <loader class="height-100" :status="getStatus">
       <div class="content-block-center">
         <b-row class="justify-content-center p-4">
           <b-col cols="12">
@@ -117,7 +116,6 @@
           </b-col>
         </b-row>
       </div>
-    </loader>
   </div>
 </template>
 
@@ -143,11 +141,8 @@ export default {
       show: true
     };
   },
-  computed: {
-    ...mapGetters("loader", ["getStatus"])
-  },
   methods: {
-    ...mapMutations("loader", ["setStatus"]),
+    ...mapMutations("loader", ["setLoading","setLoaded"]),
     onSubmit(evt) {
       evt.preventDefault();
       this.$emit("bildUser", this.form);
@@ -165,20 +160,20 @@ export default {
         this.show = true;
       }).catch(err => {
         console.log(err);
-        this.$emit("setStatus", "LOADED");
+        this.setLoaded();
       });
     },
     fetchResource() {
-      this.setStatus("LOADING");
+      this.setLoading();
       Promise.all([getFieldsOfStudy(), getYears()])
         .then(response => {
           this.fieldsOfStudy = response[0];
           this.years = response[1];
-          this.setStatus("LOADED");
+          this.setLoaded();
         })
         .catch(err => {
           console.error(err);
-          this.setStatus("LOADED");
+          this.setLoaded();
         });
     }
   },

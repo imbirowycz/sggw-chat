@@ -2,7 +2,7 @@
   <div class="hello">
     <div class="hello-info">
       <!-- <div class="hello-info__logo"></div> -->
-      <router-link @click.native="setStatus(true)" to="/registration/options/teacher">
+      <router-link @mousedown.native="$emit('setStatus', 'ticher')" to="/registration/options/teacher">
         <div class="hello-eg">
           <h1 class="bolster">Teacher</h1>
           <business-icon class="material-icons"></business-icon>
@@ -11,7 +11,7 @@
       </router-link>
     </div>
     <div class="hello-option">
-      <router-link @click.native="setStatus(false)" to="/registration/options/student">
+      <router-link @mousedown.native="$emit('setStatus', 'students')" to="/registration/options/student">
         <div class="hello-eg">
           <h1 class="bolster">Student</h1>
           <school-icon class="material-icons"></school-icon>
@@ -32,13 +32,11 @@ export default {
     SchoolIcon
   },
   methods: {
-    setStatus(value) {
-      if (value) {
-        this.$emit('bildUser', {statusUser: 'teacher'})
-      } else {
-        this.$emit('bildUser', {statusUser: 'student'})
-      } 
-    }
+    // setStatus(value) {
+     
+    //     this.$emit('setStatus', value)
+     
+    // }
   }
 };
 </script>

@@ -12,6 +12,7 @@ exports.login = (req, res) => {
         `SELECT * FROM account WHERE email = '${email}' AND password = '${password}'`
       )
       .then(rows => {
+        console.log('row login: ', rows)
         if (rows.length > 0) {
           let token = jwt.sign({id: rows[0].id_account}, secret.secret, {
             expiresIn: 86400,
@@ -67,6 +68,27 @@ exports.logout = (req, res) => {
     });
 };
 exports.init = (req, res) => {
+  //TODO
+  res.json('auth ok :)');
+};
+exports.register = (req, res) => {
+  console.log(req.body)
+  let accountType = req.body.accountType;
+  let role = null
+  if (accountType == 'ticher') role = 2
+  else if (accountType == 'students') role = 3
+  else role = 4
+  database.query(`INSERT INTO account (id_role, email, password, accountType) value(${role}, '${req.body.email}', '${req.body.password}', '${accountType}') `).then(row => {
+    console.log("row: ", row)
+    if (accountType == "ticher") {
+      database.query(`INSERT INTO ticher (id_account, email, degree, firstName, lastName, faculty) value (${row.insertId}, '${req.body.email}', '${req.body.degree}', '${req.body.firstName}', '${req.body.lastName}', 'wydzial nauk o zwierzetach')`)
+    } else if (accountType == "students") {
+      database.query(`INSERT INTO students (id_account, email, degree, firstName, lastName, fildOfStudy, mode, numberAl, year) value (${row.insertId}, '${req.body.email}', '${req.body.degree}', '${req.body.firstName}', '${req.body.lastName}', '${req.body.fildtOfStudy}', '${req.body.mode}', '${req.body.numberAl}', '${req.body.year}')`)
+    } else {
+      //TODO add account admin
+      }
+      
+    })
   //TODO
   res.json('auth ok :)');
 };

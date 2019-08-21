@@ -1,5 +1,5 @@
 <template>
-  <div class="register-student height-100">
+  <div class="register-student">
       <div class="content-block-center">
         <b-row class="justify-content-center p-4">
           <b-col cols="12">
@@ -185,7 +185,7 @@ export default {
 
 <style lang="scss" scoped>
 .content-register {
-  height: 100%;
+  min-height: 100%;
   overflow-y: auto;
 }
 .block-radio {
@@ -219,6 +219,7 @@ export default {
 </style>
 <style lang="scss">
 .register-student {
+  min-height: 100%;
   padding-top: 5em;
   background: $pink;
   label {

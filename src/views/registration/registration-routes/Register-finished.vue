@@ -64,26 +64,30 @@ export default {
     ...mapMutations("loader", ["setLoading", "setLoaded"]),
     ...mapMutations('user', ['createdUser']),
     onSubmit() {
-      if (this.password == this.confirmPassword) {
+      if(this.password && this.password.length < 8) {
+        this.error = true;
+        this.msg = "Hasło nie może być krutsze niż 8 znaków!"
+      }
+      else if (this.password == this.confirmPassword) {
         this.error = false;
         this.$emit("bildUser", { password: this.password });
         this.$emit('finishedBildUser')
-        this.setLoading();
-        createUser()
-          .then(response => {
-            this.setLoaded();
-            this.$router.push({
-              name: "Login",
-              params: {
-                param: response,
-                user: { email: this.userGet.email, password: this.userGet.password }
-              }
-            });
-          })
-          .catch(err => {
-            console.error(err);
-            this.setLoaded();
-          });
+        // this.setLoading();
+        // createUser()
+        //   .then(response => {
+        //     this.setLoaded();
+        //     this.$router.push({
+        //       name: "Login",
+        //       params: {
+        //         param: response,
+        //         user: { email: this.userGet.email, password: this.userGet.password }
+        //       }
+        //     });
+        //   })
+        //   .catch(err => {
+        //     console.error(err);
+        //     this.setLoaded();
+        //   });
       } else {
         this.error = true;
         this.msg = "Hasła muszą się zgadzać!";

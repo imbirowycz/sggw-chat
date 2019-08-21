@@ -7,6 +7,7 @@ var express = require('express'),
 router.post('/login', auth.login);
 router.post('/logout', auth.logout);
 router.post('/init',authentication, auth.init)
+router.post('/register', auth.register)
 
 
 

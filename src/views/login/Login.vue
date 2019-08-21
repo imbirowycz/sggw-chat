@@ -216,7 +216,7 @@ export default {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 
   .hello-info {

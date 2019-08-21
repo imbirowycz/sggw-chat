@@ -19,12 +19,12 @@
 </template>
 <script>
 import {mapGetters, mapMutations} from "vuex"
+import http from "@/http/http"
 export default {
   name: "Registration",
 
   data() {
     return {
-      status: "LOADED",
       user: {},
       links: [
         {
@@ -81,14 +81,25 @@ export default {
       });
     },
     setStatus(status) {
-      this.status = status;
+      this.user.accountType = status;
     },
     bildUser(payload) {
       // this.createdUser(payload);
+      console.log('payload: ', payload)
       this.user = Object.assign(this.user, payload);
     },
     finishedBildUser() {
-      this.userCreate(this.user)
+      // this.userCreate(this.user)
+      http.post('auth/register', this.user).then(res => {
+        console.log('rejestracja użytkownika przebiegła pomyślnie')
+        this.$router.push({
+              name: "Login",
+              params: {
+                param: 'Konto zostało pomyślenie utworzone. Proszę się zalogować.',
+                user: { email: this.user.email, password: this.user.password }
+              }
+            });
+      }).catch(err => console.log('rejestracja nie udana :('))
     }
   },
   beforeRouteUpdate(to, from, next) {

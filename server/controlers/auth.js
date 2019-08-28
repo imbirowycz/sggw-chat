@@ -82,8 +82,18 @@ exports.register = (req, res) => {
     console.log("row: ", row)
     if (accountType == "ticher") {
       database.query(`INSERT INTO ticher (id_account, email, degree, firstName, lastName, faculty) value (${row.insertId}, '${req.body.email}', '${req.body.degree}', '${req.body.firstName}', '${req.body.lastName}', 'wydzial nauk o zwierzetach')`)
-    } else if (accountType == "students") {
-      database.query(`INSERT INTO students (id_account, email, degree, firstName, lastName, fildOfStudy, mode, numberAl, year) value (${row.insertId}, '${req.body.email}', '${req.body.degree}', '${req.body.firstName}', '${req.body.lastName}', '${req.body.fildtOfStudy}', '${req.body.mode}', '${req.body.numberAl}', '${req.body.year}')`)
+    } else if (accountType == "students") { 
+  
+      database.query(`SELECT * FROM groups where year = '${req.body.year}' and fieldOfStudy = '${req.body.fieldOfStudy}' and mode = '${req.body.mode}' and degree = '${req.body.degree}';`).then(group => {
+        if (group.length < 1) database.query(`INSERT INTO groups (year,fieldOfStudy, mode, degree) value('${req.body.year}','${req.body.fieldOfStudy}','${req.body.mode}', '${req.body.degree}')`).then(id => {
+          console.log('if id_group: ', id.insertId);
+          database.query(`INSERT INTO students (id_account,id_group, email, degree, firstName, lastName, fieldOfStudy, mode, numberAl, year) value (${row.insertId}, ${id.insertId},'${req.body.email}', '${req.body.degree}', '${req.body.firstName}', '${req.body.lastName}', '${req.body.fieldOfStudy}', '${req.body.mode}', '${req.body.numberAl}', '${req.body.year}')`);
+        })
+        else {
+          console.log('else id_group: ', group[0].id_group);
+          database.query(`INSERT INTO students (id_account,id_group, email, degree, firstName, lastName, fieldOfStudy, mode, numberAl, year) value (${row.insertId}, ${group[0].id_group},'${req.body.email}', '${req.body.degree}', '${req.body.firstName}', '${req.body.lastName}', '${req.body.fieldOfStudy}', '${req.body.mode}', '${req.body.numberAl}', '${req.body.year}')`);
+        }
+        })
     } else {
       //TODO add account admin
       }

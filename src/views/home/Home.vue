@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="left-bar">
-      <button @click="testLoader()">Test loader</button>
+      <!-- <button @click="testLoader()">Test loader</button> -->
       <user-info></user-info>
       <options-menu></options-menu>
       <!-- <div class="left-bar-footer"></div> -->
@@ -12,7 +12,14 @@
       <chat-footer @messageToParent="sentMessage"></chat-footer>
     </div>
     <div class="right-bar">
-      <div class="right-bar-header"></div>
+      <div class="right-bar-header">
+        <div class="home-button pd-10" :class="{active: isHome}" @click="connectHomeRoom()">
+        <span>Strona główna</span>
+      </div>
+      <div class="message-button pd-10" :class="{active: !isHome}" @click="connectChatRoom()">
+        <span>Messages</span>
+      </div>
+      </div>
       <div class="right-bar-options"></div>
       <!-- <div class="right-bar-footer"></div> -->
     </div>

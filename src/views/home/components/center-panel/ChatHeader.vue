@@ -1,11 +1,11 @@
 <template>
   <div class="center-bar-header">
     <div class="center-bar-header-options">
-      <div class="home-button pd-10" :class="{active: isHome}" @click="connectHomeRoom()">
-        <span>Strona główna</span>
+      <div class="home-button pd-10" :class="{active: isHome}" @click="connectPostRoom()">
+        <span>Wiadomości publiczne</span>
       </div>
       <div class="message-button pd-10" :class="{active: !isHome}" @click="connectChatRoom()">
-        <span>Messages</span>
+        <span>Korespondencja</span>
       </div>
     </div>
     <div class="center-bar-header-info pd-10">
@@ -22,13 +22,13 @@ export default {
     };
   },
   methods: {
-    connectHomeRoom() {
+    connectPostRoom() {
       this.isHome = !this.isHome;
-      this.$emit("connectToHomeRoom");
+      this.$emit("connectPostRoom");
     },
     connectChatRoom() {
       this.isHome = !this.isHome;
-      this.$emit("connectMessageRoom");
+      this.$emit("connectChatRoom");
     }
   }
 };

@@ -28,7 +28,9 @@ exports.login = (req, res) => {
                 }`
               )
               .then(user => {
-                res.status(200).json({auth: true, token: token, user: user[0]});
+                let localUser = user[0];
+                localUser.status = rows[0].accountType
+                res.status(200).json({auth: true, token: token, user: localUser});
                 res.end();
               });
           } else {

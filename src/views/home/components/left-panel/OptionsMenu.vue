@@ -1,11 +1,9 @@
 <template>
       <div class="left-bar-options">
-        <b-button variant="outline-primary add-chat" block>Dodaj czat</b-button>
         <input type="text" placeholder="szukaj">
         <b-button block variant="outline-primary add-chat">
           <filter-icon></filter-icon>Filtruj wyszukiwane
         </b-button>
-        <b-button variant="outline-primary" block>Dodaj grupę do listy</b-button>
       </div>
 </template>
 <script>
@@ -23,11 +21,11 @@ export default {
 <style lang="scss" scoped>
 .left-bar-options {
       // border: 1px solid black;
-      flex: 3 1;
+      // flex: 3 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 0 10px;
       overflow-y: auto;
       .add-chat {
         margin-bottom: 20px;

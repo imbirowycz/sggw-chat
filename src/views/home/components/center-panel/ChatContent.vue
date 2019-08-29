@@ -4,7 +4,7 @@
       class="post"
       v-for="(x,index) in messages"
       :key="index"
-      :class="{right: user.id == x.id}"
+      :class="{right: userGet.id_account == x.id_account}"
       ref="posts"
     >
       <div class="msg">
@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import { setTimeout } from "timers";
+import {  mapGetters } from "vuex";
 export default {
   name: "ChatContent",
   props: {
@@ -31,6 +31,9 @@ export default {
         div.scrollTop = div.scrollHeight;
       });
     }
+  },
+  computed: {
+    ...mapGetters("user", ["userGet"])
   },
   data() {
     return {};

@@ -2,6 +2,7 @@
   <div class="home">
     <div class="left-bar">
       <!-- <button @click="testLoader()">Test loader</button> -->
+      {{room}}
       <user-info></user-info>
       <options-menu></options-menu>
       <div class="left-bar-wrapper">
@@ -11,7 +12,7 @@
     </div>
     <div class="center-bar">
       {{contentType}}
-      <chat-header @connectPostRoom="connectPostRoom" @connectChatRoom="connectChatRoom"></chat-header>
+      <chat-header @connectPostRoom="connectToRoom" @connectChatRoom="connectChatRoom"></chat-header>
       <post-content ref="posts" v-if="contentType == 'post'"></post-content>
       <chat-content v-if="contentType == 'chat'" :messages="messages" :user="userGet" ref="content"></chat-content>
       <chat-footer
@@ -21,15 +22,11 @@
     </div>
     <div class="right-bar">
       <div class="right-bar-header">
-        <div class="home-button pd-10" @click="connectHomeRoom()">
-          <span>Strona główna</span>
-        </div>
-        <div class="message-button pd-10" @click="connectChatRoom()">
-          <span>Messages</span>
-        </div>
+        <h2>Plubione</h2>
       </div>
-      <div class="right-bar-options"></div>
+      <div class="right-bar-list"></div>
       <!-- <div class="right-bar-footer"></div> -->
+      <button @click="getLikeList()">Pobierz likieList</button>
     </div>
 
     <!-- <h3>Hello from Home!</h3>
@@ -44,7 +41,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import UserInfo from "./components/left-panel/UserInfo";
 import OptionsMenu from "./components/left-panel/OptionsMenu";
 import ChatHeader from "./components/center-panel/ChatHeader";
@@ -76,7 +73,11 @@ export default {
     //     user: state => state.user != null ? state.user : 'undefinited'
     // }),
     ...mapGetters("user", ["userGet"]),
-    ...mapState("user", { rabit: state => state.user })
+    ...mapGetters("room", ["getOldRoom"]),
+    ...mapState("user", { rabit: state => state.user }),
+    ...mapState("room", {
+      room: state => state.currentRoom
+    })
   },
   sockets: {
     connect() {
@@ -85,10 +86,11 @@ export default {
     newMessage(value) {
       this.messages.push(value);
     },
-    newPost(value) {
-      console.log("nwe POst from server");
+    newPostSocket(value) {
+      console.log("new POst from server");
       console.log(this.$refs.posts);
-      this.$refs.posts.posts.push(value);
+      // this.$refs.posts.posts.unshift(value);
+      this.addPost(value);
     },
     usersUpdate(value) {
       this.messages.push(value);
@@ -96,9 +98,10 @@ export default {
   },
   methods: {
     ...mapMutations("user", ["setUserId"]),
+    ...mapMutations("post", ["addPost"]),
     ...mapMutations("loader", ["setLoaded", "setLoading"]),
-    connectToRoom (id) {
-      console.log('connectToRoom', id)
+    connectToRoom(id) {
+      console.log("connectToRoom", id);
     },
     testLoader() {
       console.log("wowolano metodę testLoader");
@@ -109,42 +112,33 @@ export default {
     },
     sentMessage(value) {
       if (this.contentType == "post") {
+        console.log("sentMessage");
         const userMsg = {
           content: value,
           ...this.userGet,
-          id_group: 1
+          id_group: this.room
         };
         this.$socket.emit("newPost", userMsg, err => {
           if (err) console.log(err);
         });
       } else {
-        const userMsg = {
-          id: this.rabit.id,
-          message: value,
-          name: this.rabit.firstName,
-          id_account: this.userGet.id_account
-        };
-        this.$socket.emit("newMessage", userMsg, err => {
-          alert("co jest");
-          if (err) console.log(err);
-        });
+        // const userMsg = {
+        //   id: this.rabit.id,
+        //   message: value,
+        //   name: this.rabit.firstName,
+        //   id_account: this.userGet.id_account
+        // };
+        // this.$socket.emit("newMessage", userMsg, err => {
+        //   alert("co jest");
+        //   if (err) console.log(err);
+        // });
       }
     },
-    getData() {
-      axios.get("http://localhost:3000/get").then(respnse => {
-        this.dane = respnse.data;
-      });
-    },
     liveRoom() {
-      this.$socket.emit(
-        "leave",
-        { oldRoom: "112233", currentRoom: "00990099" },
-        err => {
-          alert("co jest");
-          if (err) console.log(err);
-        }
-      );
-      console.log("wywolano connectHomeRoom");
+      console.log("wywolano liveRoom");
+      this.$socket.emit("leave", { id_room: this.getOldRoom }, err => {
+        if (err) console.log(err);
+      });
     },
     // connectChatRoom() {
     //   this.contentType = "chat"
@@ -159,47 +153,40 @@ export default {
     //   );
     // },
     connectChatRoom() {
-      this.contentType = "chat";
-      this.liveRoom();
-      this.$socket.emit(
-        "joinChat",
-        {
-          name: this.userGet.firstName,
-          id_group: this.userGet.id_group,
-          id_account: this.userGet.id_account
-        },
-        data => {
-          if (typeof data == "string") console.log(data);
-          else {
-            this.setUserId(data.id);
-          }
-        }
-      );
+      //   this.contentType = "chat";
+      //   this.liveRoom();
+      //   this.$socket.emit(
+      //     "joinChat",
+      //     {
+      //       name: this.userGet.firstName,
+      //       id_group: this.userGet.id_group,
+      //       id_account: this.userGet.id_account
+      //     },
+      //     data => {
+      //       if (typeof data == "string") console.log(data);
+      //       else {
+      //         this.setUserId(data.id);
+      //       }
+      //     }
+      //   );
+    },getLikeList() {
+      http.get(`likeList/getAll?type=${this.userGet.status}&id_account=${this.userGet.id_account}`).then(response => {
+        console.log(response)
+      })
     },
-    connectPostRoom() {
+    connectToRoom() {
+      console.log("connectPostRoom");
       this.contentType = "post";
       this.liveRoom();
-      this.$socket.emit(
-        "joinPost",
-        {
-          name: this.userGet.firstName,
-          id_group: this.userGet.id_group,
-          id_account: this.userGet.id_account
-        },
-        data => {
-          if (typeof data == "string") console.log(data);
-          else {
-            console.log("Podlączono do postRoom");
-          }
-        }
-      );
+      this.$socket.emit("join", this.room, error => {
+        console.error(error);
+      });
     },
     initializeConnections() {}
   },
   mounted() {
     this.token = JSON.parse(localStorage.getItem("userChat")).token;
     console.log("id_group : ", this.userGet);
-    this.connectPostRoom();
   }
 };
 </script>
@@ -230,7 +217,13 @@ export default {
     display: flex;
     flex-direction: column;
     &-header {
-      flex: 1 1;
+      border-bottom: 1px solid $border-color;
+      h2 {
+        font-size: 20px;
+        margin-top: 10px;
+        text-align: center;
+        font-weight: bold;
+      }
     }
     &-options {
       flex: 3 1;
@@ -246,10 +239,6 @@ export default {
     flex-direction: column;
     border-right: $border;
     border-left: $border;
-  }
-  .right-bar {
-    width: 450px;
-    height: 100%;
   }
 }
 </style>

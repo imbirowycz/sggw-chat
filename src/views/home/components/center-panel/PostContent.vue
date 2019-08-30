@@ -1,8 +1,7 @@
 <template>
   <div class="posts-wrapper">
-      {{posts}}
-    <div v-if="posts.length > 0">
-      <div class="posts" v-for="(post ,index) in posts" :key="index" ref="posts">
+    <div v-if="getPosts.length > 0">
+      <div class="posts" v-for="(post ,index) in getPosts" :key="index" ref="posts">
         <div class="post-header">
           <strong class="faculty">{{post.faculty}}</strong>
           <p>
@@ -30,41 +29,14 @@ export default {
   components: {
     Empty
   },
-  data() {
-    return {
-      posts: []
-    };
-  },
-  watch: {
-    messages() {
-      let div = document.querySelector(".chat");
-      setTimeout(() => {
-        div.scrollTop = div.scrollHeight;
-      });
-    }
-  },
   computed: {
-    ...mapGetters("user", ["userGet"])
+    ...mapGetters('post', ["getPosts"])
   },
   filters: {
     filterDate(value) {
       let date = new Date(value);
       return date.toLocaleDateString("PL-pl");
     }
-  },
-  methods: {
-    getPosts() {
-      console.log("this.userGet.id_group: ", this.userGet.id_group);
-      http
-        .get(`posts/getAll?id_group=${this.userGet.id_group}`)
-        .then(respnse => {
-          console.log("response:", respnse.data);
-          this.posts = respnse.data;
-        });
-    }
-  },
-  mounted() {
-    this.getPosts();
   }
 };
 </script>

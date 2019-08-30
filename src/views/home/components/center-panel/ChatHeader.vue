@@ -8,18 +8,22 @@
         <span>Korespondencja</span>
       </div>
     </div>
-    <div class="center-bar-header-info pd-10">
-      <span>Aktualny czat</span>
+    <div class="center-bar-header-info pd-10" v-if="getDescription">
+      <span>{{getDescription.name}} {{getDescription.mode}} {{getDescription.year}}</span>
     </div>
   </div>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: "ChatHeader",
   data() {
     return {
       isHome: true
     };
+  },
+  computed: {
+    ...mapGetters('room', ["getDescription"])
   },
   methods: {
     connectPostRoom() {

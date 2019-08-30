@@ -3,9 +3,9 @@ const database = require('../database');
 exports.getAll = (req, res) => {
   database
     // .query(`SELECT * FROM post WHERE id_group = '${req.query.id_group}'`)
-    .query(`SELECT * FROM post LEFT JOIN ticher ON post.id_account = ticher.id_account where id_group = 1;`)
+    .query(`SELECT * FROM post LEFT JOIN ticher ON post.id_account = ticher.id_account where id_group = '${req.query.id_group}';`)
     .then(row => {
-        console.log('row by select : ', row)
+        // console.log('row by select : ', row)
       res.json(row);
       res.end();
     })

@@ -68,4 +68,5 @@ export default {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 2px;
 }
+
 </style>

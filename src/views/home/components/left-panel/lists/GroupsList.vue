@@ -2,8 +2,7 @@
   <div class="group-list">
     <div class="group-block" v-for="(item,index) in rooms" :key="index" @click="connect(item)">
       <p>{{item.fieldOfStudy}}</p>
-      <p>{{item.year}}</p>
-      <p>{{item.mode}}</p>
+      <p>{{item.mode}} / {{item.year}}</p>
     </div>
   </div>
 </template>
@@ -44,15 +43,22 @@ export default {
 <style lang="scss" scoped>
 .group-list {
   .group-block {
-    padding: 10px 0;
+    padding: 10px 10px;
     border-bottom: 1px solid $border-color;
     cursor: pointer;
     &:hover {
-      color: $blue;
+      p{
+        color: $blue;
+      }
+      
     }
     p {
       margin: 0;
+      font-size: 11px;
     }
+  }
+  .group-block > p:first-child {
+    font-weight: bold;
   }
 }
 </style>

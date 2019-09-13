@@ -2,7 +2,6 @@
   <div class="home">
     <div class="left-bar">
       <!-- <button @click="testLoader()">Test loader</button> -->
-      {{room}}
       <user-info></user-info>
       <options-menu></options-menu>
       <div class="left-bar-wrapper">
@@ -11,7 +10,6 @@
       <!-- <div class="left-bar-footer"></div> -->
     </div>
     <div class="center-bar">
-      {{contentType}}
       <chat-header @connectPostRoom="connectToRoom" @connectChatRoom="connectChatRoom"></chat-header>
       <post-content ref="posts" v-if="contentType == 'post'"></post-content>
       <chat-content v-if="contentType == 'chat'" :messages="messages" :user="userGet" ref="content"></chat-content>
@@ -25,8 +23,32 @@
         <h2>Plubione</h2>
       </div>
       <div class="right-bar-list"></div>
+      <list-likie></list-likie>
       <!-- <div class="right-bar-footer"></div> -->
-      <button @click="getLikeList()">Pobierz likieList</button>
+      <!-- <button @click="getLikeList()">Pobierz likieList</button>
+      <div v-for="(item, index) in likeList" :key="index">
+        <div v-if="item.type == 'group'" class="list-likie-item">
+          <div class="user-foto">
+            <user-icon></user-icon>
+          </div>
+          <div class="item-description">
+            <span>{{item.fieldOfStudy}}</span>
+            <span>{{item.mode}}</span>
+            <span>{{item.year}}</span>
+          </div>
+        </div>
+        <div class="list-likie-item" v-else >
+          <div class="user-foto">
+            <user-icon></user-icon>
+          </div>
+          <div class="item-description">
+            <span>{{item.fieldOfStudy}}</span>
+            <span>{{item.firstName}} {{item.lastName}}</span>
+            <span>{{item.mode}}</span>
+            <span>{{item.year}}</span>
+          </div>
+        </div>
+      </div> -->
     </div>
 
     <!-- <h3>Hello from Home!</h3>
@@ -49,6 +71,7 @@ import PostContent from "./components/center-panel/PostContent";
 import ChatContent from "./components/center-panel/ChatContent";
 import ChatFooter from "./components/center-panel/ChatFooter";
 import ListRooms from "./components/left-panel/ListRooms";
+import ListLikie from "./components/right-panel/ListLikie"
 import http from "@/http/http";
 export default {
   name: "Home",
@@ -59,7 +82,8 @@ export default {
     PostContent,
     ChatContent,
     ChatFooter,
-    ListRooms
+    ListRooms,
+    ListLikie
   },
   data() {
     return {
@@ -169,10 +193,6 @@ export default {
       //       }
       //     }
       //   );
-    },getLikeList() {
-      http.get(`likeList/getAll?type=${this.userGet.status}&id_account=${this.userGet.id_account}`).then(response => {
-        console.log(response)
-      })
     },
     connectToRoom() {
       console.log("connectPostRoom");
@@ -216,6 +236,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
     &-header {
       border-bottom: 1px solid $border-color;
       h2 {

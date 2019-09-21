@@ -1,6 +1,6 @@
 <template>
   <div class="list-likie">
-    <div v-for="(item, index) in likeList" :key="index" @click="connect(item)">
+    <div v-for="(item, index) in favoriteList" :key="index" @click="connect(item)">
       <div v-if="item.type == 'group'" class="list-likie-item">
         <div class="item-icon">
           <span class="user-foto user-foto--group">
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      likeList: []
+      favoriteList: []
     };
   },
   computed: {
@@ -50,11 +50,11 @@ export default {
     getLikeList() {
       http
         .get(
-          `likeList/getAll?type=${this.userGet.status}&id_account=${this.userGet.id_account}`
+          `favoriteList/getAll?type=${this.userGet.status}&id_account=${this.userGet.id_account}`
         )
         .then(response => {
-          console.log("listLike: ", response);
-          this.likeList = response.data;
+          console.log("favoriteList: ", response);
+          this.favoriteList = response.data;
         })
         .catch(err => {
           console.log(err);

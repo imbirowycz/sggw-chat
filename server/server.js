@@ -13,14 +13,14 @@ var cors = require('cors');
 var auth = require('./routes/auth');
 var post = require('./routes/posts');
 var groups = require('./routes/groups');
-var likeList = require('./routes/likeList');
+var favoriteList = require('./routes/favoriteList');
 app.use(bodyParser.json());
 app.use(morgan('combine'));
 app.use(cors());
 app.use('/api/auth', auth);
 app.use('/api/posts', post);
 app.use('/api/groups', groups);
-app.use('/api/likeList', likeList);
+app.use('/api/favoriteList', favoriteList);
 
 io.on('connection', socket => {
   console.log('io connection');

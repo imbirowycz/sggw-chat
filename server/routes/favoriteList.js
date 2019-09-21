@@ -1,9 +1,9 @@
 var express = require('express'),
   router = express.Router(),
-  likeList = require('../controlers/likeList'),
+  favoriteList = require('../controlers/favoriteList'),
   authentication = require('../utilities/authentication')
 
   
-router.get('/getAll',authentication, likeList.getAll);
+router.get('/getAll',authentication, favoriteList.getAll);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import store from '@/store/store';
 
 export default function (to, from, next) {
+    // next(true)
     let locStor = localStorage.getItem("userChat");
     if (store.getters['user/userGet'] != null) {
         next(true)

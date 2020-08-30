@@ -367,7 +367,7 @@ export default {
     }
   }
   .btn {
-    padding: 0.5rem;
+    padding: 10px 16px!important;
     border-radius: 0.5rem;
     background: $blue;
     color: $white;
@@ -378,7 +378,7 @@ export default {
     width: 100%;
     display: block;
     font-family: "Roboto", sans-serif;
-
+    
     &:hover {
       outline: none;
       background: #96b094;
@@ -395,4 +395,25 @@ export default {
   color: $invalid;
   font-size: 0.7rem;
 }
+.btn {
+    padding: 6px 26px!important;
+    border-radius: 0.5rem;
+    background: $blue;
+    color: $white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: background-color 0.2s, color 0.2s;
+    border: none;
+    width: 100%;
+    display: block;
+    font-family: "Roboto", sans-serif;
+    
+    &:hover {
+      outline: none;
+      background: #96b094;
+      color: $white;
+      cursor: pointer;
+    }
+  }
+
 </style>

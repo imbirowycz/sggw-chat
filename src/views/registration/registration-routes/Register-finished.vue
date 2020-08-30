@@ -1,7 +1,5 @@
 <template>
-  <div class="register-finished">
-      <div class="content-block-center">
-        <b-row class="d-flex align-items-center justify-content-center row-block">
+  <div class="register-finished register-item">
           <div v-if="error" class="alert alert-danger alert-block" role="alert">{{msg}}</div>
           <b-col>
             <b-form @submit.prevent="onSubmit">
@@ -39,8 +37,6 @@
               ></path>
             </svg>
           </b-col>
-        </b-row>
-      </div>
   </div>
 </template>
 <script>
@@ -98,15 +94,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .register-finished {
+  position: relative;
   display: flex;
   width: 100%;
-  flex-direction: column;
-  min-height: 100%;
   padding-top: 5em;
   background: $pink;
   .loader {
     flex: 1 1;
   }
+}
+.register-item{
+  padding: 120px!important;
+
 }
 .content-block-center {
   display: flex;
@@ -117,9 +116,9 @@ export default {
 }
 .alert-block {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: calc(100% - 20px);
+  top: 30px;
+  left: 120px;
+  right: 120px;
 }
 .row-block {
   height: 100%;

@@ -1,8 +1,12 @@
 <template>
 <div class="test" style="height: 100%; border-bottom: 3px solid blue;">
 <div class="scroll">
-    sdkfjskdjfskdjfsks
-    <p v-for="(item, index) in tab" :key="index">{{item}}</p>
+  
+    <input type="text">
+    <input type="text">
+    <input type="text">
+    <input type="text">
+    <p>lorem</p>
 
 </div>
 </div>

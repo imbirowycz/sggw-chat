@@ -1,12 +1,10 @@
 <template>
-  <div class="register-student">
-      <div class="content-block-center">
-        <b-row class="justify-content-center p-4">
-          <b-col cols="12">
-            <h4 class>Proszę wypełnić poniższy formularz:</h4>
+  <div class="register-student register-item">
+   
+            <h4 class="text-center">Proszę wypełnić poniższy formularz</h4>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
               <div class="d-flex flex-wrap">
-                <div class="box-form">
+                <div class="box-form box-form-st">
                   <b-form-group id="input-group-name" label="Imię:" label-for="input-name" inline>
                     <b-form-input id="input-name" v-model="form.firstName" type="text" required></b-form-input>
                   </b-form-group>
@@ -42,7 +40,7 @@
                     ></b-form-input>
                   </b-form-group>
                 </div>
-                <div class="box-form">
+                <div class="box-form box-form-st">
                   <b-form-group id="input-group-3" label="Kierunek studiów:" label-for="input-3">
                     <b-form-select
                       id="input-3"
@@ -113,9 +111,7 @@
 
               <!-- <b-button type="reset" variant="danger">Reset</b-button> -->
             </b-form>
-          </b-col>
-        </b-row>
-      </div>
+         
   </div>
 </template>
 
@@ -219,11 +215,11 @@ export default {
 </style>
 <style lang="scss">
 .register-student {
-  min-height: 100%;
-  padding-top: 5em;
+  // padding-top: 5em;
   background: $pink;
   label {
     padding-bottom: 2px !important;
   }
 }
+
 </style>
